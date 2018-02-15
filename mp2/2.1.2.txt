@@ -7,4 +7,4 @@ CREATE TABLE history (id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 user_id INT UNSIGNED NOT NULL,
 query VARCHAR(2048) NOT NULL);
 
-CREATE INDEX user_id ON history (user_id);
+CREATE UNIQUE INDEX user_id ON history (user_id);
