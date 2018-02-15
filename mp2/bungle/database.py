@@ -11,8 +11,8 @@ def connect():
     #TODO: fill out function parameters. Use the user/password combo for the user you created in 2.1.2.1
     
     return mdb.connect(host="localhost",
-                       user="",
-                       passwd="",
+                       user="ptwrdhn2",
+                       passwd="f1a86709d1e356b16542b866edbf82fe1442c9f041e2b0a1eb576396bc060f25",
                        db="");
 
 def createUser(username, password):
@@ -24,6 +24,7 @@ def createUser(username, password):
     db_rw = connect()
     cur = db_rw.cursor()
     #TODO: Implement a prepared statement using cur.execute() so that this query creates a row in table user
+    cur.execute("INSERT INTO user (username, password, passwordhash) VALUES(%s, %s, %s);" % username, password, md5(password))
     db_rw.commit()
 
 def validateUser(username, password):
@@ -36,6 +37,7 @@ def validateUser(username, password):
     db_rw = connect()
     cur = db_rw.cursor()
     #TODO: Implement a prepared statement using cur.execute() so that this query selects a row from table user
+    cur.execute("SELECT ")
     if cur.rowcount < 1:
         return False
     return True
