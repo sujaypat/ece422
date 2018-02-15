@@ -26,6 +26,7 @@ class XSSEncodeAngles(object):
     @staticmethod
     def filter(user_input):
         #TODO: complete this filter definition
+        user_input = user_input.replace("<", "&lt").replace(">", "&gt")
         return user_input	
 
 ############################################################
@@ -54,6 +55,8 @@ class CSRFToken(object):
         token = request.get_cookie("csrf_token")
 
         #TODO: implement Token validation
+        if not token:
+            token = os.urandom(16)
 
         return token
     @staticmethod
