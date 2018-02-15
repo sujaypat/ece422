@@ -1,0 +1,21 @@
+MP1 checkpoint 1 grade for ptwrdhn2 (partner: tdubey3)
+
+1.1.1_addr  : 2/2
+Comment : ''
+
+1.1.1_eax  : 2/2
+Comment : ''
+
+1.1.2  : 4/4
+Comment : ''
+
+1.1.3  : 4/4
+Comment : ''
+
+1.1.4  : 4/4
+Comment : ''
+
+1.1.5  : 4/4
+Comment : ''
+
+total   : 20/20
