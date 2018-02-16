@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/bin/python2
 import sys, os, re, bottle
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 

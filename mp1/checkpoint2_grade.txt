@@ -1,0 +1,36 @@
+MP1 checkpoint 2 grade for ptwrdhn2 (partner: tdubey3)
+
+1.2.1  : 8/8
+Comment : ''
+
+1.2.2  : 8/8
+Comment : ''
+
+1.2.3  : 8/8
+Comment : ''
+
+1.2.4  : 9/9
+Comment : ''
+
+1.2.5  : 9/9
+Comment : ''
+
+1.2.6  : 9/9
+Comment : ''
+
+1.2.7  : 9/9
+Comment : ''
+
+1.2.8  : 10/10
+Comment : ''
+
+1.2.9  : 10/10
+Comment : ''
+
+1.2.10  : 0/10
+Comment : 'Solution does not work'
+
+1.2.11  : 10/10
+Comment : ''
+
+total   : 90/100

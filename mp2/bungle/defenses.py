@@ -11,7 +11,7 @@ class XSSNone(object):
     name = "No defense"
     @staticmethod
     def init(response):
-        response.set_header("X-XSS-Protection", "0");           
+        response.set_header("X-XSS-Protection", "0");
     @staticmethod
     def filter(user_input):
         return user_input
@@ -27,7 +27,7 @@ class XSSEncodeAngles(object):
     def filter(user_input):
         #TODO: complete this filter definition
         user_input = user_input.replace("<", "&lt").replace(">", "&gt")
-        return user_input	
+        return user_input
 
 ############################################################
 # CSRF Defenses
@@ -65,7 +65,7 @@ class CSRFToken(object):
     @staticmethod
     def validate(request, token):
         if request.forms.get('csrf_token') != token:
-            raise HTTPError(403, "CSRF Attack Detected (bad or missing token)")        
+            raise HTTPError(403, "CSRF Attack Detected (bad or missing token)")
 
 ############################################################
 
