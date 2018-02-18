@@ -54,7 +54,7 @@ def fetchUser(username):
     cur = db_rw.cursor(mdb.cursors.DictCursor)
     print username
     #TODO: Implement a prepared statement so that this query selects a id and username of the row which has column username = username
-    cur.execute("SELECT * FROM users WHERE username=\'%s\';" % username)
+    cur.execute("SELECT id, username FROM users WHERE username=\'%s\';" % username)
     if cur.rowcount < 1:
         return None
     return FormsDict(cur.fetchone())
@@ -67,7 +67,7 @@ def addHistory(user_id, query):
 
     db_rw = connect()
     cur = db_rw.cursor()
-    #TODO: Implement a prepared statment using cur.execute() so that this query inserts a row in table history
+    #TODO: Implement a prepared statement using cur.execute() so that this query inserts a row in table history
     cur.execute("INSERT INTO history (user_id, query) VALUES(%u, \'%s\');" % (user_id, query))
     db_rw.commit()
 
@@ -82,7 +82,7 @@ def getHistory(user_id):
     db_rw = connect()
     cur = db_rw.cursor()
     #TODO: Implement a prepared statement using cur.execute() so that this query selects 15 distinct queries from table history
-    cur.execute("SELECT DISTINCT query FROM history WHERE user_id=%u LIMIT 15;" % user_id)
+    cur.execute("SELECT DISTINCT query, id FROM history WHERE user_id=%u ORDER BY id DESC LIMIT 15;" % user_id)
     rows = cur.fetchall();
     return [row[0] for row in rows]
 
