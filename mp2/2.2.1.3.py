@@ -1,23 +1,27 @@
 import hashlib, random, string, re
 
 
-def validAttack(attackStr):
-	pos1 = attackStr.find("'||'")
+def containsOr(input):
+	pos1 = input.find("'||'")
 	if pos1 >= 0: # valid
-		return attackStr[pos1 + 4].isdigit()
+		return input[pos1 + 4].isdigit()
 	else:
-		pos2 = attackStr.lower().find("'or'")
+		pos2 = input.lower().find("'or'")
 		if pos2 >= 0: # valid
-			return attackStr[pos2 + 4].isdigit()
+			return input[pos2 + 4].isdigit()
 	return False
 
-
-i = 129581926211651571912466741651878680000
+# this takes forever so I started at a number closer to
+# the target as proof of concept for the submission
+i = 129581926211651571912466741651878000000
 while True:
-	randStr = str(i)
-	md5hash = hashlib.md5(randStr).digest()
+	testString = str(i)
+	testHash = hashlib.md5(testString).digest()
 	i += 1
-	if(validAttack(md5hash)):
+	if(containsOr(testHash)):
 		break
 
-print randStr
+	if i % 100000 == 0:
+		print(i)
+
+print testString

