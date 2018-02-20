@@ -1,6 +1,7 @@
 import re, os
 from bottle import FormsDict, HTTPError
 from hashlib import md5
+from binascii import b2a_hex
 
 ############################################################
 # XSS Defenses
@@ -55,8 +56,10 @@ class CSRFToken(object):
         token = request.get_cookie("csrf_token")
 
         #TODO: implement Token validation
-        if not token:
-            token = os.urandom(16)
+        if token is None:
+            token = b2a_hex(os.urandom(16))
+
+        response.set_cookie("csrf_token", token)
 
         return token
     @staticmethod
