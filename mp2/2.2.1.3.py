@@ -1,27 +1,37 @@
-import hashlib, random, string, re
+import hashlib
+import random
+import string
+import re
+from mpi4py import MPI
 
-
+# here we check if the string contains an or followed by a number
 def containsOr(input):
-	pos1 = input.find("'||'")
-	if pos1 >= 0: # valid
-		return input[pos1 + 4].isdigit()
+	vertical_sep = input.find("'||'")
+	if vertical_sep >= 0:
+		return input[vertical_sep + 4].isdigit()
 	else:
-		pos2 = input.lower().find("'or'")
-		if pos2 >= 0: # valid
-			return input[pos2 + 4].isdigit()
+		or_word = input.lower().find("'or'")
+		if or_word >= 0:
+			return input[or_word + 4].isdigit()
 	return False
 
-# this takes forever so I started at a number closer to
-# the target as proof of concept for the submission
-i = 129581926211651571912466741651878000000
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+
+print(comm)
+print(size)
+print(rank)
+
+HASH_SIZE = 100000
+
+start = 129581926211651571912466741651878000000 + (rank * HASH_SIZE)
 while True:
-	testString = str(i)
-	testHash = hashlib.md5(testString).digest()
-	i += 1
-	if(containsOr(testHash)):
-		break
-
-	if i % 100000 == 0:
-		print(i)
-
-print testString
+	for x in range(start, start + HASH_SIZE):
+		testString = str(x).encode()
+		testHash = hashlib.md5(testString).digest()
+		if (containsOr(testHash)):
+			print(testString)
+			comm.Abort(0)
+	start = start + ((rank + size) * HASH_SIZE)
+	print("Rank " + str(rank) + " is moving to set " + str(start))
