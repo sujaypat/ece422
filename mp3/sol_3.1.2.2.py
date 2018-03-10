@@ -6,10 +6,10 @@ def read_key():
 	iv = ''
 
 	with open(sys.argv[2], 'r') as f:
-		key += f.readline()
+		key = f.readline()
 
 	with open(sys.argv[3], 'r') as f:
-		iv += f.readline()
+		iv = f.readline()
 
 	return (key.decode('hex'), iv.decode('hex'))
 
@@ -18,7 +18,7 @@ def translate():
 	key, iv = read_key()
 
 	with open(sys.argv[1], 'r') as f:
-		to_uncipher += f.readline()
+		to_uncipher = f.readline()
 
 	aes = AES.new(key=key, mode=AES.MODE_CBC, IV=iv)
 	result = aes.decrypt(to_uncipher.decode('hex'))
