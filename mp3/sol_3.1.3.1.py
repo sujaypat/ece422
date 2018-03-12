@@ -25,4 +25,4 @@ print(str(c))
 print(hex(c))
 
 with open(sys.argv[3], "w") as f:
-    f.write(str(hex(c)))
+    f.write(str(hex(c))[2:])
