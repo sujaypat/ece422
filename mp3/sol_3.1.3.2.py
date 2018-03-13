@@ -10,8 +10,7 @@ def wha(inStr):
     return outHash
 
 with open(sys.argv[1]) as f:
-    fd = f.read().strip() 
+    fd = f.read().strip()
 
 with open(sys.argv[2], 'w') as f:
-    f.write("0x" + format(wha(bytes(fd)), 'x'))
-
+	f.write(format(wha(bytes(fd)), 'x'))

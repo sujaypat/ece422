@@ -1,0 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+good = "I come in peace."
+evil = "Prepare to be destroyed!"
+blob = """
