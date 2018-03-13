@@ -32,9 +32,9 @@ pad = padding("12345678" + "user=" + query.split("user=")[1])
 lengthMessage = lengthData + len(pad)/2
 
 # Create the MD5
-attack = pymd5.md5(state=token, count=((lengthData * 8) + len(pad) * 4))
+attack = pymd5.md5(state=token.decode('hex'), count=((lengthData * 8) + len(pad) * 4))
 attack.update(command)
 print("Generated token of: " + attack.hexdigest())
 
 with open(sys.argv[3], 'w') as f:
-    f.write(attack.hexdigest())
+    f.write("token=" + attack.hexdigest() + "&user=" + query.split("user=")[1] + command)
