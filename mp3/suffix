@@ -1,3 +1,7 @@
+
+
 """
-from hashlib import sha256
-print sha256(blob).hexdigest()
+if sha256(blob).hexdigest() == '234ad6b2447eb9b10ec4dc702ec302fade2f412d4f51afb80674fc7cf4533078':
+	print good
+else:
+	print evil
