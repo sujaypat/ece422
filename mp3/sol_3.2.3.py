@@ -2,6 +2,7 @@ import urllib2
 import random
 import sys
 import binascii
+import string
 
 POSSIBLE_PADDINGS = ['\x10',
         '\x0f',
@@ -39,7 +40,7 @@ POSSIBLE_PADDINGS_REG = ['\x10',
 
 POSSIBLE_PADDINGS.reverse()
 
-netid = "tdubey3"
+netid = "ptwrdhn2"
 host = 'http://72.36.89.11:9999/mp3/' + netid + '/?'
 
 # ONLY USE WHEN TESTING LOCALLY
@@ -85,52 +86,58 @@ print("Passed...")
 # So we can attack the last block first
 dblocks.reverse()
 
-# Generate a block of "ciphertext" that is all zeroes
-# Last bit is all zeores as that's what we change
-controlBlock = ""
-controlBlock = '\x00' * 16
+decodedValue = []
 
-print("Generated fakeblock of: " + controlBlock.encode('hex'))
-print("Block to crack is:      " + dblocks[0].encode('hex'))
-print("Starting...")
+for b in range(0,len(dblocks) - 1):
+    # Generate a block of "ciphertext" that is all zeroes
+    # Last bit is all zeores as that's what we change
+    controlBlock = ""
+    controlBlock = '\x00' * 16
 
-
-# Make call to oracle with our fakeblock and real ciphertext until padding is correct
-plaintextBlock = []
-for y in reversed(range(0,16)):
-    # Store the plaintext as it's being built out
-    for x in range(0, 256):
-        # Change control block value
-        s = list(controlBlock)
-        s[y] = chr(x)
-        controlBlock = "".join(s)
-
-        # Build the URL to send
-        blockHex = binascii.hexlify(dblocks[0])
-        sendData = binascii.hexlify(controlBlock) + blockHex
-        urlSend = host + sendData
-
-        # Print for debugging
-        sys.stdout.write("%s\r" % sendData)
-        sys.stdout.flush()
-
-        # Send fake packet
-        if get_status(urlSend):
-            # Calculate the plaintext value
-            previousBlockByte = int(binascii.hexlify(dblocks[1][y]), 16)
-            plainTextByte = int(binascii.hexlify(POSSIBLE_PADDINGS[y]), 16) ^ previousBlockByte ^ x
-            plaintextBlock = [plainTextByte] + plaintextBlock
-            print("")
-            print("Found value: " + hex(x) + " with plaintext of " + hex(plainTextByte))
-
-            # Calculate fixed value
+    # Make call to oracle with our fakeblock and real ciphertext until padding is correct
+    plaintextBlock = ["\x00"] * 16
+    for y in reversed(range(0,16)):
+        # Store the plaintext as it's being built out
+        for x in range(0, 256):
+            # Change control block value
             s = list(controlBlock)
-            for z in reversed(range(y,16)):
-                setVal = int(binascii.hexlify(POSSIBLE_PADDINGS_REG[z-y]), 16)
-                previousBlockByte = int(binascii.hexlify(dblocks[1][z]), 16)
-                fixVal = setVal ^ plainTextByte ^ previousBlockByte
-                print(hex(setVal), hex(previousBlockByte), hex(fixVal), z)
-                s[z] = chr(fixVal)
+            s[y] = chr(x)
             controlBlock = "".join(s)
-            print("Locked control block to: " + binascii.hexlify(controlBlock))
-            break
+
+            # Build the URL to send
+            blockHex = binascii.hexlify(dblocks[b])
+            sendData = binascii.hexlify(controlBlock) + blockHex
+            urlSend = host + sendData
+
+            # Print for debugging
+            sys.stdout.write("%s\r" % sendData)
+            sys.stdout.flush()
+
+            # Send fake packet
+            if get_status(urlSend):
+                # Calculate the plaintext value
+                previousBlockByte = int(binascii.hexlify(dblocks[b + 1][y]), 16)
+                expectedByte = ord("\x10")
+                plainTextByte = expectedByte ^ previousBlockByte ^ x
+                plaintextBlock[y] = chr(plainTextByte)
+                print("Found value: " + hex(x) + " with plaintext of " + hex(plainTextByte))
+
+                # Calculate fixed value, but only if we are not on the last character
+                if y != 0:
+                    s = list(controlBlock)
+                    for z in reversed(range(y,16)):
+                        setVal = int(binascii.hexlify(POSSIBLE_PADDINGS_REG[(z-y) + 1]), 16)
+                        previousBlockByte = int(binascii.hexlify(dblocks[b + 1][z]), 16)
+                        fixVal = setVal ^ ord(plaintextBlock[z]) ^ previousBlockByte
+                        s[z] = chr(fixVal)
+                    controlBlock = "".join(s)
+                    print("Locked control block to: " + binascii.hexlify(controlBlock))
+                print("Plaintext so far:   " + binascii.hexlify("".join(plaintextBlock)))
+                filteredPText = filter(lambda x: x in string.printable, "".join(plaintextBlock))
+                print("Filtered plaintext: " + filteredPText.strip())
+                break
+    decodedValue = [filteredPText] + decodedValue
+    print("Full plaintext thus far: " + "".join(decodedValue).strip())
+
+with open("sol_3.2.3.txt", 'w') as f:
+    f.write("".join(decodedValue).strip())
