@@ -7,6 +7,14 @@ from Crypto import Random
 from Crypto.Cipher import AES, PKCS1_v1_5
 
 e = 65537
+ciphertext = RSA.importKey("""-----BEGIN PRETTY BAD ENCRYPTED MESSAGE-----
+gAAAAEFe1XK++19nHNZD4UJAuJqVTPbgRxP5fpXjydnyWss3HhuKla/Kl6Ap2ngMIYQioDwCOaob
+fDxlQQ7xwftvHdxRFCUeLO1cpxlLnyzYQac1yHvnHGGo16hYG0JGyldvITHsVWNQla53C/YakR2h
+Oukjr4I18sNTomS9upyz/p8AHox/MbxCvap3yGNQjt/XrMbaSzXXCAkzJ7H7QguVEmWdEU0RqgRO
+430kpH+jXHDw0tinQ+QA0sN1pJlKxb1g6KkJjYQNcjS2RrfCOitn+143LUTxT38EmRfEDKvKF0lm
+1zX2JXpD+oMDUBM732U6spLlX6JnyVY9Byh4/r+wkWBwQeeQSl/GWOsEu2xVQ4enJcHMhuyZJwOP
+2K76ndl2Ng==
+-----END PRETTY BAD ENCRYPTED MESSAGE-----""")
 
 def product(X):
 	if len(X) == 0:
