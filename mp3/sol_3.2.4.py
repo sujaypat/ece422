@@ -14,7 +14,8 @@ Oukjr4I18sNTomS9upyz/p8AHox/MbxCvap3yGNQjt/XrMbaSzXXCAkzJ7H7QguVEmWdEU0RqgRO
 430kpH+jXHDw0tinQ+QA0sN1pJlKxb1g6KkJjYQNcjS2RrfCOitn+143LUTxT38EmRfEDKvKF0lm
 1zX2JXpD+oMDUBM732U6spLlX6JnyVY9Byh4/r+wkWBwQeeQSl/GWOsEu2xVQ4enJcHMhuyZJwOP
 2K76ndl2Ng==
------END PRETTY BAD ENCRYPTED MESSAGE-----""")
+-----END PRETTY BAD ENCRYPTED MESSAGE-----
+""")
 
 def product(X):
 	if len(X) == 0:
