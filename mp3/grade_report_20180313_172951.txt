@@ -1,0 +1,34 @@
+ptwrdhn2 total : 20/20
+Testing python_exercise	2.0/2	
+3.1.1.2_decimal *Passed*
+
+3.1.1.2_binary *Passed*
+
+Testing substitution_cipher	3.0/3	
+3.1.2.1.txt *Passed*
+
+3.1.2.1.py *Passed*
+
+Testing decrypt_aes	3.0/3	
+3.1.2.2.txt *Passed*
+
+3.1.2.2.py *Passed*
+
+Testing weak_aes	3.0/3	
+3.1.2.3 *Passed*
+
+Testing decrypt_rsa	3.0/3	
+3.1.2.4.hex *Passed*
+
+3.1.2.4.py *Passed*
+
+Testing avalanche_effect	3.0/3	
+3.1.3.1.hex *Passed*
+
+3.1.3.1.py *Passed*
+
+Testing weak_hashing_algorithm	3.0/3	
+3.1.3.2.txt *Passed*
+
+3.1.3.2.py *Passed*
+

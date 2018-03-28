@@ -1,0 +1,38 @@
+grade report for ptwrdhn2
+
+2.2.1 SQL INJECTION
+grade for 2.2.1.1: 5/5
+comment for 2.2.1.1: Success
+grade for 2.2.1.2: 5/5
+comment for 2.2.1.2: Success
+grade for 2.2.1.3: 10/10
+comment for 2.2.1.3: Success
+grade for 2.2.1.4: 10/10
+comment for 2.2.1.4: 
+TOTAL: 30.0/30
+
+2.2.2 CSRF
+grade for 2.2.2.1: 10/10
+comment for 2.2.2.1: 
+grade for 2.2.2.2: 0/10
+comment for 2.2.2.2: Not logged in
+TOTAL: 10.0/20
+
+2.2.3 XSS
+grade for 2.2.3.1: 5/5
+comment for 2.2.3.1: passed
+submission of 2.2.3.2_payload.html: 4/4
+comment for 2.2.3.2_payload.html: 
+grade for 2.2.3.2: 21/21
+comment for 2.2.3.2: 
+grade for 2.2.3.3: 5/5
+comment for 2.2.3.3: 
+grade for 2.2.3.4: 5/5
+comment for 2.2.3.4: 
+grade for 2.2.3.5: 5/5
+comment for 2.2.3.5: 
+grade for 2.2.3.6: 5/5
+comment for 2.2.3.6: 
+TOTAL: 50.0/50
+
+TOTAL: 90.0/100
