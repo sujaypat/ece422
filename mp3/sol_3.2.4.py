@@ -1,61 +1,78 @@
 import struct
 import re
 import mpi4py
+import pbp
+
+from fractions import gcd
 from operator import mul
+
 from Crypto.PublicKey import RSA
 from Crypto import Random
 from Crypto.Cipher import AES, PKCS1_v1_5
 
-e = 65537
-ciphertext = RSA.importKey("""-----BEGIN PRETTY BAD ENCRYPTED MESSAGE-----
-gAAAAEFe1XK++19nHNZD4UJAuJqVTPbgRxP5fpXjydnyWss3HhuKla/Kl6Ap2ngMIYQioDwCOaob
-fDxlQQ7xwftvHdxRFCUeLO1cpxlLnyzYQac1yHvnHGGo16hYG0JGyldvITHsVWNQla53C/YakR2h
-Oukjr4I18sNTomS9upyz/p8AHox/MbxCvap3yGNQjt/XrMbaSzXXCAkzJ7H7QguVEmWdEU0RqgRO
-430kpH+jXHDw0tinQ+QA0sN1pJlKxb1g6KkJjYQNcjS2RrfCOitn+143LUTxT38EmRfEDKvKF0lm
-1zX2JXpD+oMDUBM732U6spLlX6JnyVY9Byh4/r+wkWBwQeeQSl/GWOsEu2xVQ4enJcHMhuyZJwOP
-2K76ndl2Ng==
------END PRETTY BAD ENCRYPTED MESSAGE-----
-""")
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
 
-def product(X):
-	if len(X) == 0:
-		return 1
-	while len(X) > 1:
-		X = [reduce(mul, X[i*2:(i+1)*2], 1) for i in range((len(X)+1)/2)]
-		print(len(X))
-	return X[0]
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
 
-def producttree(X):
-	result = [X]
-	while len(X) > 1:
-		X = [reduce(mul, X[i*2:(i+1)*2], 1) for i in range((len(X)+1)/2)]
-		result.append(X)
-	return result
+def lcm(a, b):
+    return (a * b) // gcd(a, b)
 
-def remainders_using_product_tree(n,T):
-	result = [n]
-	for t in reversed(T):
-		result = [result[floor(i/2)] % t[i] for i in range(len(t))]
-	return result
+def findPrivateExponent(gcd, moduli):
+    return modinv(65537, (gcd - 1) * ((moduli // gcd) - 1))
+    
+def pTree(values):
+    print("Computing product tree...")
+    ret = [values]
+    while len(values) > 1:
+        print(len(values))
+        values = [reduce(mul, values[(i * 2):((i + 1) * 2)], 1) for i in range((len(values) + 1) / 2)]
+        ret.append(values)
+    print("Done computing product tree...")
+    return ret
 
-def remainders(n,X):
-	return remainders_using_product_tree(n,producttree(X))
+def rTree(productTree):
+    print("Computing remainder tree...")
+    remainders = productTree.pop()
+    while productTree:
+        div = productTree.pop()
+        print(len(remainders), len(div))
+        remainders = [remainders[i / 2] % div[i] ** 2 for i in range(len(div))]
+    print("Done computing remainder tree...")
+    return remainders, div
 
-def find_gcd(moduli):
-	prod = product(moduli)
-	rem = remainders(50000, prod)
-	# return rem
+def fastGCD(keys):
+    r, d = rTree(pTree(keys))
+    return [gcd(r / n, n) for r, n in zip(r, d)]
 
 
 keys = []
 
-with open('moduli.hex', 'r') as moduluses_af:
-	for line in moduluses_af:
-		keys.append(int(line.rstrip(), 16))
+with open('moduli.hex', 'r') as f:
+    for line in f:
+        keys.append(int(line.rstrip(), 16))
 
-with open('3.2.4_ciphertext.enc.asc', 'r') as garbage:
-	pass
+with open('3.2.4_ciphertext.enc.asc', 'r') as f:
+    ciphertext = "".join(f.readlines())
 
-pkeys = find_gcd(keys)
-for p in pkeys:
-	print(pbp.decrypt(RSA.construct((p, long(e), long(d)).exportKey()), cipertext))
+gcds = fastGCD(keys)
+
+print(len(gcds))
+
+for i in range(len(gcds)):
+    if gcds[i] != 1:
+        d = findPrivateExponent(gcds[i], keys[i])
+        key = RSA.construct( (long(keys[i]), long(65537), long(d)) )
+        try:
+            print pbp.decrypt(key, ciphertext)
+        except ValueError:
+            pass
