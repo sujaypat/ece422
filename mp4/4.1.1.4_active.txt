@@ -1,3 +1,1 @@
-# example content
-# content_from_active_FTP!@($!@:+_
-THREEPIO: Your Highness, we must take this last transport. It's our\n
+THREEPIO: Your Highness, we must take this last transport. It's our
