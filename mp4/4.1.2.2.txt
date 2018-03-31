@@ -1,4 +1,1 @@
-# example content
-# ex1) www.example.com
-# ex2) blog.example.com
 www.facebook.com

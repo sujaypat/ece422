@@ -1,3 +1,1 @@
-# example content
-# ========security is kewl; blah blah blah @#$!)$(@ this message is in a single line.=============================
-THREEPIO: Don't say thing like that! Of course we'll see Master Luke~~~~~~~~~~~~~~~~~~~~~~
+THREEPIO:%20Don't%20say%20thing%20like%20that!%20Of%20course%20we'll%20see%20Master%20Luke~~~~~~~~~~~~~~~~~~~~~~
