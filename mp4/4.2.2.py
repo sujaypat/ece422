@@ -23,7 +23,6 @@ if (len(sys.argv) < 2):
     sys.exit(1)
 
 filename = sys.argv[1]
-print "Input filename: " + filename
 
 srcpkt = {}
 dstpkt = {}
@@ -44,28 +43,21 @@ with open(filename, 'rb') as f:
                         srcpkt[ip_to_str(ip.src)] = srcpkt.get(ip_to_str(ip.src), 0) + 1
                     if (tcp.flags & dpkt.tcp.TH_ACK != 0) and (tcp.flags & dpkt.tcp.TH_SYN != 0):
                         # This is an SYN-ACK recieve message
-                        dstpkt[ip_to_str(ip.src)] = dstpkt.get(ip_to_str(ip.dst), 0) + 1
-                    sys.stdout.write('{src} in SRC and {dst} in DST\r'.format(src=str(len(srcpkt)), dst=str(len(dstpkt))))
-                    sys.stdout.flush()
+                        dstpkt[ip_to_str(ip.dst)] = dstpkt.get(ip_to_str(ip.dst), 0) + 1
         except:
             pass
-print("")
 # Done counting, now do analysis
 outData = []
 for k, v in srcpkt.iteritems():
-    print """{kv} has {vv} SYNs""".format(kv=k, vv=v),
     # Check if k exists in dst, if it doesn't then we automatically have 3x
     if k not in dstpkt:
         if k not in outData:
             outData.append(k)
-            print("and 0 ACKs")
     else:
         # K does exist, so get the count and check if 3x
         dstCount = dstpkt[k]
-        print("and " + str(dstCount) + " ACKs")
         if v > (dstCount * 3):
             if k not in outData:
                 outData.append(k)
-print("")
 for ip in outData:
     print(ip)
