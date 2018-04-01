@@ -1,5 +1,6 @@
-# example content
-# ftp
-# telnet
-# smtp
-# pop3
+domain
+http
+netbios-ssn
+https
+microsoft-ds
+zebra
