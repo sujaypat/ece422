@@ -1,6 +1,4 @@
-domain
-http
-netbios-ssn
+ftp
+ssh
 https
-microsoft-ds
-zebra
+tmesis-upshot
