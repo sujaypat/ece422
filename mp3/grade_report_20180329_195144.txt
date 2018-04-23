@@ -1,0 +1,22 @@
+ptwrdhn2 total : 100/100
+Testing md5_length_extension	25.0/25	
+3.2.1.2.txt *Passed*
+
+3.2.1.2.py *Passed*
+
+Testing md5_goodevil_collision	25.0/25	
+3.2.3 MD5 *Passed*
+
+3.2.3 Output *Passed*
+
+MD5 of good.py, evil.py: 516cf1e31b9c854a77865ca4011cd59c, 516cf1e31b9c854a77865ca4011cd59c
+
+Output of good.py: I come in peace.
+Output of evil.py: Prepare to be destroyed!
+
+Testing padding_oracle	25.0/25	
+3.2.3.txt *Passed*
+
+Testing ps_and_qs	25.0/25	
+3.2.4.txt *Passed*
+

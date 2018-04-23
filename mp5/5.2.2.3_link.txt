@@ -1,0 +1,8 @@
+###Solution Example: ###
+#https://www.google.com/maps
+#https://www.cnet.com/news/
+https://www.google.com/?gws_rd=ssl#q=cyanide
+http://www.toxicwastecandy.com/storeLocator.aspx
+http://www.marthasbackyard.co.nz/images/toxic%20waste%201.7%20oz.jpg
+www.amazon.com/TOXIC-WASTE-Hazardously-1-7-Ounce-Plastic/dp/B001AC8JL4
+http://listverse.com/2012/12/02/10-poisons-used-to-kill-people/

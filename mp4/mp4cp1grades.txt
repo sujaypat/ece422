@@ -1,0 +1,35 @@
+MP4 Checkpoint 1 Grade Report for ptwrdhn2
+Total:	18 / 20
+
+Details:
+4.1.1	 9 / 10
+4.1.1.1	 2 / 3
+	+1 valid ip and mac address: pass
+	+1 local ip address: pass
+	+0 local mac address: fail
+4.1.1.2	 1 / 1
+	+1 number of tcp conversation: pass
+4.1.1.3	 2 / 2
+	+2 gateway ip: pass
+4.1.1.4	 3 / 3
+	+1 identifying active ftp: pass
+	+1 identifying passive ftp: pass
+	+1 content retrieval: pass
+4.1.1.5	 1 / 1
+	+1 port scanner ip: pass
+
+4.1.2	 9 / 10
+4.1.2.1	 1 / 1
+	+1 year: pass
+4.1.2.2	 1 / 1
+	+1 hostname: pass
+4.1.2.3	 1 / 1
+	+1 cipher suite list: pass
+4.1.2.4	 1 / 1
+	+1 chosen cipher suite: pass
+4.1.2.5	 2 / 2
+	+2 first name: pass
+4.1.2.6	 3 / 3
+	+3 message sent: pass
+4.1.2.7	 0 / 1
+	+0 cookie: fail

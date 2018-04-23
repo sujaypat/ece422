@@ -1,0 +1,1 @@
+viewed /var/log/auth.log for attackers and time and /var/log/syslog, found a DHCPACK just before the attack time and used that as victim ip

@@ -1,0 +1,1 @@
+looked at edited times for files and chat log times, tried to look in /etc/localtime
