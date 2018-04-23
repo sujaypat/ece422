@@ -1,0 +1,38 @@
+MP4 Checkpoint 2 Grade Report for ptwrdhn2
+Total:	96.0 / 100.0
+
+Details:
+4.2.1	 61.0 / 70.0
+4.2.1.1	 15.0 / 15.0
+	+15.0 wep key: pass
+4.2.1.2	 5.0 / 5.0
+	+5.0 client ip: pass
+4.2.1.3	 5.0 / 5.0
+	+5.0 server ip: pass
+4.2.1.4	 8.0 / 12.0
+	+3.0 ftp: pass
+	+3.0 ssh: pass
+	+0.0 http: fail
+	+3.0 https: pass
+	-1.0 false positives found: 1
+4.2.1.5	 5.0 / 5.0
+	+5.0 server secret: pass
+4.2.1.6	 20.0 / 20.0
+	+20.0 login credentials: pass
+4.2.1.7	 6.0 / 6.0
+	+3.0 secret message: pass
+	+3.0 username match: pass
+4.2.1.8	 2.0 / 2.0
+	+2.0 number of years in jail: pass
+
+4.2.2	 30.0 / 30.0
+	+3.0 0.pcap: false_positive=0; false_negative=0
+	+3.0 1.pcap: false_positive=0; false_negative=0
+	+3.0 2.pcap: false_positive=0; false_negative=0
+	+3.0 3.pcap: false_positive=0; false_negative=0
+	+3.0 4.pcap: false_positive=0; false_negative=0
+	+3.0 5.pcap: false_positive=0; false_negative=0
+	+3.0 6.pcap: false_positive=0; false_negative=0
+	+3.0 7.pcap: false_positive=0; false_negative=0
+	+3.0 8.pcap: false_positive=0; false_negative=0
+	+3.0 9.pcap: false_positive=0; false_negative=0
