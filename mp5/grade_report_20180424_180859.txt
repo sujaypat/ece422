@@ -1,0 +1,28 @@
+ptwrdhn2 total : 18.0/20
+Testing 5.1.1 Username	2.0/2	
+username passed
+
+
+Testing 5.1.2 Timezone	2.0/2	
+timezone passed
+
+
+Testing 5.1.3 Conversation	2.0/4	
+wh1t3r0s3 failed
+alice.innocuous passed
+alice.innocuous passed
+wh1t3r0s3 failed
+
+
+Testing 5.1.4 Evidence file	4.0/4	
+file name passed
+file time passed
+
+
+Testing 5.1.5 Attack	8.0/8	
+file time passed
+10.46.1.105 passed
+10.46.1.106 passed
+victim ip passed
+
+

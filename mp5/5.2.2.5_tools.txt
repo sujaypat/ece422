@@ -1,3 +1,6 @@
 ###Solution Example: ###
 #zip
 #john
+hydra
+ssh
+nmap

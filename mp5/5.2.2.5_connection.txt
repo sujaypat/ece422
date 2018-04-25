@@ -2,3 +2,6 @@
 #no
 #private_key_file_name
 #public_key_file_name
+yes
+ssh_host_ecdsa_key
+ssh_host_ecdsa_key.pub
