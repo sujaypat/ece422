@@ -1,8 +1,8 @@
 ###Solution Example: ###
 #https://www.google.com/maps
 #https://www.cnet.com/news/
-https://www.google.com/?gws_rd=ssl#q=cyanide
-http://www.toxicwastecandy.com/storeLocator.aspx
+http://www.google.com/search?q=poison+candy&ie=UTF-8&sa=Search&channel=fe&client=browser-ubuntu&hl=en
+http://www.amazon.com/TOXIC-WASTE-Hazardously-1-7-Ounce-Plastic/dp/B001AC8JL4
 http://www.marthasbackyard.co.nz/images/toxic%20waste%201.7%20oz.jpg
-www.amazon.com/TOXIC-WASTE-Hazardously-1-7-Ounce-Plastic/dp/B001AC8JL4
+http://www.toxicwastecandy.com/storeLocator.aspx?cid=13
 http://listverse.com/2012/12/02/10-poisons-used-to-kill-people/

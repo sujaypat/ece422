@@ -1,2 +1,4 @@
 ###Solution Example: ###
 #filename.ext
+evilplan.doc
+toxic waste 1.7 oz.jpg

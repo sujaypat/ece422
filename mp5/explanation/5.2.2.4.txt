@@ -1,0 +1,1 @@
+ran fcrackzip -b -c a -l 7 -v -u password.zip

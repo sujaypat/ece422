@@ -1,0 +1,5 @@
+viewed /etc/lsb-release
+
+booted to see pupsave
+
+google puppylinux431

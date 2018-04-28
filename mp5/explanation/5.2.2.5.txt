@@ -1,0 +1,7 @@
+password: ran hashcat -O -a 0 -m 1800 evidence/temp.hash ./evidence/rockyou.txt on titan black
+
+account: ~/.bash_history
+
+IP: from victim's auth.log
+
+connection: ssh changes were made, dsa keys found in /etc
