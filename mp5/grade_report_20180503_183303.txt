@@ -1,0 +1,67 @@
+ptwrdhn2 total : 93.0/100
+Testing 5.2.1 Operating Systems	10.0/10	
+puppy linux passed
+4.3.1 passed
+pupsave.2fs passed
+ubuntu passed
+14.04.3 passed
+
+
+Testing 5.2.2.1 Username	5.0/5	
+username passed
+
+
+Testing 5.2.2.2 Conversation	5.0/5	
+ladiesman461 passed
+ladiesman461 passed
+relationship passed
+
+
+Testing 5.2.2.3 Search History	9.0/10	
+link 0 failed
+link 1 passed
+link 2 passed
+link 3 passed
+link 4 passed
+weapon passed
+
+
+Testing 5.2.2.4 Encrypted File	10.0/10	
+password passed
+decrypted file passed
+
+
+Testing 5.2.2.5 Attack	19.0/20	
+ladiesman461 passed
+nmap passed
+hydra passed
+10.46.1.106 passed
+10.46.1.105 failed
+insufficiently listed ip addresses
+yes passed
+ssh_host_ecdsa_key passed
+ssh_host_ecdsa_key.pub passed
+password passed
+
+
+Testing 5.2.2.6 File Export/Recovery	5.0/10	
+filename passed
+file does not match
+
+
+Testing 5.2.2.7 Escape Plan	20.0/20	
+accomplice passed
+location(latitude) passed
+location(longitude) passed
+original time passed
+actual time passed
+
+
+Testing 5.2.2.8 File Metadata	5.0/5	
+metadata passed
+
+
+Testing 5.2.2.9 Final Decision	5.0/5	
+decision passed
+
+
